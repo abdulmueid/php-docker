@@ -17,6 +17,8 @@ RUN set -eux; \
         libxml2-dev \
         libxslt-dev \
         libzip-dev \
+        libgcrypt-dev \
+        libgpg-error-dev \
     ; \
     docker-php-ext-configure gd \
         --with-freetype-dir \
