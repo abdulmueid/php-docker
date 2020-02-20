@@ -4,14 +4,15 @@ FROM php:${PHP_VERSION}-fpm-alpine
 
 ARG XDEBUG_VERSION=2.9.2
 ARG APCU_VERSION=5.1.18
-ARG WITH_XDEBUG=false
+ARG WITH_XDEBUG=true
 
 RUN set -eux; \
     apk --no-cache add --virtual .build-deps \
         $PHPIZE_DEPS \
         libwebp-dev \
         libjpeg-turbo-dev \
-        libpng-dev libxpm-dev \
+        libpng-dev \
+        libxpm-dev \
         freetype-dev \
         icu-dev \
         libxml2-dev \
@@ -21,14 +22,12 @@ RUN set -eux; \
         libgpg-error-dev \
     ; \
     docker-php-ext-configure gd \
-        --with-freetype-dir \
-        --with-jpeg-dir \
-        --with-webp-dir \
-        --with-png-dir \
-        --with-zlib-dir \
-        --with-xpm-dir \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp \
+        --with-xpm \
     ; \
-    docker-php-ext-configure zip --with-libzip; \
+    docker-php-ext-configure zip; \
     docker-php-ext-install -j$(nproc) \
         mysqli \
         bcmath \
@@ -44,7 +43,7 @@ RUN set -eux; \
     yes '' | pecl install apcu-${APCU_VERSION}; \
     docker-php-ext-enable apcu; \
     if [ $WITH_XDEBUG = "true" ] ; then \
-        yes '' | pecl install xdebug; \
+        yes '' | pecl install xdebug-${XDEBUG_VERSION}; \
         docker-php-ext-enable xdebug; \
     fi ; \
     pecl clear-cache; \

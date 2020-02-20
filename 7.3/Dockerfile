@@ -42,7 +42,7 @@ RUN set -eux; \
     yes '' | pecl install apcu-${APCU_VERSION}; \
     docker-php-ext-enable apcu; \
     if [ $WITH_XDEBUG = "true" ] ; then \
-        yes '' | pecl install xdebug; \
+        yes '' | pecl install xdebug-${XDEBUG_VERSION}; \
         docker-php-ext-enable xdebug; \
     fi ; \
     pecl clear-cache; \
