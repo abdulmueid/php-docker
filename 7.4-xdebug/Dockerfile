@@ -36,6 +36,7 @@ RUN set -eux; \
         opcache \
         pdo_mysql \
         soap \
+        sockets \
         xmlrpc \
         xsl \
         zip \
