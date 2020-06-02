@@ -9,6 +9,8 @@ ARG WITH_XDEBUG=true
 RUN set -eux; \
     apk --no-cache add --virtual .build-deps \
         $PHPIZE_DEPS \
+        bzip2-dev \
+        gettext-dev \
         libwebp-dev \
         libjpeg-turbo-dev \
         libpng-dev \
@@ -29,6 +31,8 @@ RUN set -eux; \
     ; \
     docker-php-ext-configure zip; \
     docker-php-ext-install -j$(nproc) \
+        bz2 \
+        gettext \
         mysqli \
         bcmath \
         gd \
