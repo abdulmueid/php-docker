@@ -4,6 +4,7 @@ FROM php:${PHP_VERSION}-fpm-alpine
 
 ARG XDEBUG_VERSION=2.9.6
 ARG APCU_VERSION=5.1.18
+ARG IMAGICK_VERSION=3.4.4
 ARG WITH_XDEBUG=false
 
 RUN set -eux; \
@@ -16,6 +17,7 @@ RUN set -eux; \
         libpng-dev libxpm-dev \
         freetype-dev \
         icu-dev \
+        imagemagick-dev \
         libxml2-dev \
         libxslt-dev \
         libzip-dev \
@@ -35,6 +37,7 @@ RUN set -eux; \
         mysqli \
         bcmath \
         gd \
+        exif \
         intl \
         opcache \
         pdo_mysql \
@@ -46,6 +49,8 @@ RUN set -eux; \
     ; \
     yes '' | pecl install apcu-${APCU_VERSION}; \
     docker-php-ext-enable apcu; \
+    yes '' | pecl install imagick-${IMAGICK_VERSION}; \
+    docker-php-ext-enable imagick; \
     if [ $WITH_XDEBUG = "true" ] ; then \
         yes '' | pecl install xdebug-${XDEBUG_VERSION}; \
         docker-php-ext-enable xdebug; \
