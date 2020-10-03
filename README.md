@@ -3,12 +3,14 @@ Docker images for PHP with extras, based on official PHP7 images on Docker hub.
 
 All images include the following extensions:
   - apcu
-  - bz2
-  - gettext
-  - mysqli
   - bcmath
+  - bz2
+  - exif
+  - gettext
   - gd
+  - imagick
   - intl
+  - mysqli
   - opcache
   - pdo_mysql
   - soap
