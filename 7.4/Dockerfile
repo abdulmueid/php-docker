@@ -8,6 +8,7 @@ ARG IMAGICK_VERSION=3.4.4
 ARG WITH_XDEBUG=false
 
 RUN set -eux; \
+    addgroup -g 1000 php && adduser -u 1000 -G php -D -H php; \
     apk --no-cache add --virtual .build-deps \
         $PHPIZE_DEPS \
         bzip2-dev \
@@ -64,5 +65,5 @@ RUN set -eux; \
     			| sort -u \
     			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
     	)"; \
-    apk add --no-cache --virtual .phpexts-rundeps $runDeps; \
+    apk add --no-cache --virtual .phpexts-rundeps $runDeps busybox-suid; \
     curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
